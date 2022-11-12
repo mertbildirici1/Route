@@ -41,6 +41,9 @@ Additional resources: if you have any concerns about using Git with a partner, p
 ## Outline 
 
 - [Project Introduction](#project-introduction)
+    - [The `Point` Class](#the-point-class)
+    - [The `Visualize` Class](#the-visualize-class)
+    - [Graph Data](#graph-data)
 - [Part 1: Impelementing `GraphProcessor`](#part-1-implementing-graphprocessor)
 - [Part 2: Creating `GraphDemo`](#part-2-creating-graphdemo)
 - [Submitting, Reflect, Grading](#submitting-reflect-grading)
@@ -68,7 +71,7 @@ Vertices/nodes in the graph we will use to represent the United States highway s
 
 </details>
 
-### The `Visualize` class
+### The `Visualize` Class
 
 One of the things you will be asked to do in your ultimate demo is create visualizations of the route(s) computed by your algorithms. To do this, you are provided with `Visualize.java` (which, in turn, uses `StdDraw.java`, though you won't need to directly call anything from this). You do not need to edit the `Visualize` class, though you will use it. The Visualize class is described in more detail in the expandable sectios below.
 
@@ -82,13 +85,52 @@ width height
 ```
 where the ranges correspond to the left, right, bottom, and top boundaries respectively of the image onto which the graph will be visualized, and the width and height are the number of pixels in the image to be visualized. You are provided with 3 `.vis` files inside of the `data` folder, corresponding to the three images inside of the `images` folder.
 
-`imageFile` should be a `.png` image with dimensions matching those supplied in the `visFile`. Three such images files are supplied inside of the `images` folder, each of which has a corresponding `.vis` file.
+`imageFile` should be a `.png` image with dimensions matching those supplied in the `visFile`. Three such images files are supplied inside of the `images` folder, each of which has a corresponding `.vis` file. These images were taken from [Open Street Map](https://www.openstreetmap.org) for purely educational purposes and are not approved for commercial applications.
 
 The `public` methods of `Visualize` are:
 - `drawPoint` draws a single point on the image supplied.
 - `drawEdge` draws an edge between two points on the `image` supplied.
 - `drawGraph` takes a `List<Point>` and calls `drawPoint` on each, as well as a `List<Point[]>`, and attempts to call `drawEdge` on the index 0 and index 1 elements of each array in the latter list.
 - `drawRoute` takes a `List<Point>` and draws each point in the list, connecting each subsequent two points by an edge. **This is the method you are most likely to directly use in visualizing the route(s) you calculate.**
+
+</details>
+
+### Graph Data
+
+A graph consists of a number of vertices/nodes and the connections between them (known as edges). Our data represents highway networks, where vertices/nodes are points (see the [`Point` class](#the-point-class)) on the Earth's surface (think of them as intersections of highways) and the edges represent road segments. Our graph is **undirected**, meaning we assume every edge can be traversed in either direction.
+
+The data we work with was original pulled from the [METAL project by Dr. James D. Teresco](https://courses.teresco.org/metal/graph-formats.shtml). This data is intended for educational use only and not for any commercial purposes. It has been slightly modified and stored as `.graph` files inside of the `data` folder. Three `.graph` files are supplied, the first two are small and intended for development, testing, and debugging, and the third is much larger and intended for use in the final demo. All three have corresponding `.vis` and `.png` files for use with `Visualize`.
+
+1. `simple.graph` contains a small abstract graph (meaning not a real road network) with ten nodes and ten edges. A visualization is shown below at the left. We recommend using `simple.graph` while developing/debugging your project, as it is much easier to reason about and you don't need to worry much about efficiency.
+
+2. `durham.graph` contains a small but real-world graph, a subset of `usa.graph` that lies within the downtown Durham area. A visualization is shown below at the right. Note that now the graph is imposed on a real image of the road network of Durham instead of an abstract background. We recommend testing on `durham.graph` after you feel comfortable that your code is working on `simple.graph`.
+
+<div align="center">
+  <img width="300" src="images/simpleGraph.png">
+  <img width="300" src="images/durhamGraph.png">
+</div>
+
+3. `usa.graph` contains over 85 thousand vertices and edges representing the (continental) United States Highway Network. This is the network on which you will ultimately produce your demo, and for which the efficiency or not of your implementations may become noticeable.
+
+The format of a `.graph` file is described in more detail in the expandable section below.
+
+<details><summary>Expand for details on the `.graph` file format</summary>
+
+Each `.graph` file represents a graph in the following format:
+
+```
+num_vertices num_edges
+node0_name node0_latitude node0_longitude
+node1_name node1_latitude node1_longitude
+...
+index_u_edge0 index_v_edge0
+index_v_edge1 index_v_edge1
+...
+```
+In other words:
+- The first consists of the number of vertices and edges respectively, space separated.
+- The next `num_vertices` lines describe one vertex/node per line, giving its name/label, then its latitude, then its longitude, all space separated.
+- The next $`num_edges`$ lines describe one edge per line, giving the index of its first endpoint and then the index of its second endpoint, space separated. These indices refer to the order in which the vertices/nodes appear in this file (0-indexed). For example, `0 1` would mean there is an edge between the first and second vertices listed above in the file.
 
 </details>
 
