@@ -148,7 +148,10 @@ You will need to add instance variables to your `GraphProcessor` to represent a 
 
 ### Implement `initialize`
 
-This method takes as input a `String fileName`. The file should be in the [`.graph` format](#graph-data). The method should read the data from the file and create a representation of the graph, **stored in the instance variables** so that the graph representation is avaialble to subsequent method calls. If the file cannot be opened or does not have the correct format, the method throws an `Exception`.
+This method takes as input a `String fileName`. The file should be in the [`.graph` format](#graph-data). The method should read the data from the file and create a representation of the graph, **stored in the instance variables** so that the graph representation is avaialble to subsequent method calls. If the file cannot be opened or does not have the correct format, the method throws an `Exception`, for example:
+```java
+throw new Exception("Could not read .graph file");
+```
 
 `initialize` should always be called first before any of the subsequent methods. Make sure to verify that your `initialize` method is working as you expect before proceeding, as an incorrect `initialize` method will also cause problems with later methods. You might consider, for example, implementing a `main` method purely for verification purposes, and printing or using the debugger to view your graph representation of `simple.graph`, comparing to what is visualized in `simpleGraph.png`; see [Graph Data](#graph-data) above.
 
@@ -192,6 +195,29 @@ Two ideas for how to compute the connected components include:
 </details>
 
 ### Implement `route`
+
+This method takes two points, `start` and `end`, as input and should return a `List<Point>` representing the **shortest path** from `start` to `end` as a sequence of points. The total distance along a path is the sum of the edge weights, equal to the sum of the straight-line distance between consecutive points (see [implement `routeDistance`](#implement-routedistance)). Note that you must return the path itself, not just the distance along the path. The first point in your returned list should be `start`, and the last point should be `end`. 
+
+If there is no path between `start` and `end`, either because the two points are not in the graph, or because they are the same point, or because they are not connected in the graph, then you should throw an exception, for example: 
+```java
+throw new InvalidAlgorithmParameterException("No path between start and end");
+```
+
+This method will require you to search in the graph itself, and must also take into account the fact that the graph is weighted while searching for shortest paths. You will need to adapt Dijkstra's algorithm to accomplish this: a breadth-first search (BFS) that uses a binary heap instead of a queue to keep track of which vertex to explore next. You can use the `java.util` data structure `PriorityQueue` that implements a binary heap. Note that this data structure does not support operations to change the priority of an element, so instead your implementation should simply `add` an element again any time a new shorter path is discovered, with the corresponding smaller distance.
+
+The runtime complexity of your implementation should be at most $`O(N+M) \log(N)`$ where $`N`$ is the number of vertices in the graph, $`M`$ is the number of edges in the graph, and we are assuming that each vertex is connected to at most a constant number of other vertices due to the way we use the `PriorityQueue`.
+
+It is possible make the runtime of `route` much faster empirically in the average case (though not asymptotically in the worst case). This is not required for credit, but if you have completed the project and are interested in optimizing this method to go beyond what is required, see the expandable section below.
+
+<details><summary>OPTIONAL: Optimizing route</summary>
+
+A common adaptation of Dijkstra's algorithm explores/searches the entire graph before returning the shortest path from `start` to `end`. In cases where `start` and `end` are very far apart in the graph, this may be inevitable, but often `start` and `end` are much closer than the extremes of the graph. In this case, one can improve the runtime substantially by simply **returning early** as soon as the shortest path from `start` to `end` has been confirmed. The question for your consideration is this: At what point in Dijkstra's algorithm can you be sure that you have found the shortest path from `start` to `end`, as opposed to simply one path?
+
+A second way to optimize the empirical runtime shortest path search is to adapt the [A* (pronounced "A-star") search algorithm](https://en.wikipedia.org/wiki/A*_search_algorithm). This algorithm calculates distances in the same way as Dijkstra's algorithm, but it uses a different priority ordering for determining which vertex to explore next. A* uses a *heuristic* function that evaluates how close a given node is to `end`. In general, designing a good heuristic can be challenging, but for distances in the real world there is a natural heuristic to use: the straight-line distance from a given node to `end`.
+
+Using this straight-line heuristic, rather than just exploring the closest unexplored node like Dijkstra's algorithm, A* search would explore the node that minimizes (shortest path distance from `start`) + (straight-line distance to `end`). This allows the algorithm to exploit information about the *direction* of the `end` node it is trying to reach. There is no guarantee that the result will be asymptotically more efficient than Dijkstra's algorithm, but it is often more efficient in practice.
+
+</details>
 
 ## Part 2: Creating `GraphDemo`
 
