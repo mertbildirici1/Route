@@ -63,7 +63,7 @@ Vertices/nodes in the graph we will use to represent the United States highway s
 <details><summary>Expand for details on Point methods</summary>
 
 - `getLat` and `getLon` are getter methods for returning the values of the private latitude and longitude instance variables. 
-- The `distance` method calculates the "straight-line" distance from one point to another. Note that latitudes and longitudes are *angles* and not x-y coordinates, so this calculation requires trigonometric projection onto a sphere. This can get a little complicated, see [great circle distances](https://en.wikipedia.org/wiki/Great-circle_distance) if you're curious, but you do **not** need to understand or change this math. Please use the `distance` method provided and do not alter or implement a different one, for the sake of consistency with the autograder.
+- The `distance` method calculates the "straight-line" distance in US miles from one point to another. Note that latitudes and longitudes are *angles* and not x-y coordinates, so this calculation requires trigonometric projection onto a sphere. This can get a little complicated, see [great circle distances](https://en.wikipedia.org/wiki/Great-circle_distance) if you're curious, but you do **not** need to understand or change this math. Please use the `distance` method provided and do not alter or implement a different one, for the sake of consistency with the autograder.
 - The `equals` method checks if two points have the same `latitude` and `longitude`.
 - The `hashCode` method has been implemented to be consistent with `equals`, and so that you can use `Point` objects in `HashSet`s or as keys in `HashMap`s.
 - The `toString` allows you to directly print Point objects.
@@ -150,15 +150,16 @@ You will need to add instance variables to your `GraphProcessor` to represent a 
 
 This method takes as input a `String fileName`. The file should be in the [`.graph` format](#graph-data). The method should read the data from the file and create a representation of the graph, **stored in the instance variables** so that the graph representation is avaialble to subsequent method calls. If the file cannot be opened or does not have the correct format, the method throws an `Exception`.
 
-`initialize` should always be called first before any of the subsequent methods.
+`initialize` should always be called first before any of the subsequent methods. Make sure to verify that your `initialize` method is working as you expect before proceeding, as an incorrect `initialize` method will also cause problems with later methods. You might consider, for example, implementing a `main` method purely for verification purposes, and printing or using the debugger to view your graph representation of `simple.graph`, comparing to what is visualized in `simpleGraph.png`; see [Graph Data](#graph-data) above.
 
 ### Implement `nearestPoint`
 
 In general you may be interested in routing between points that are not themselves vertices of the graph, in which case you need to be able to find the closest points on the graph. This method takes a `Point p` as input and returns the vertex in the graph that is closest to `p`, in terms of the straight-line distance calculated by the `distance` method of [the Point class](#the-point-class), NOT shortest path distance. Note that the input `p` may not be in the graph. If there are ties, you can break them arbitrarily.
 
-A simple implementation of the `nearestPoint` method should have $`O(N)`$ runtime complexity where $`N`$ is the number of vertices in the graph. Your implementation should be at least this efficient. It is possible to use more advanced data structures to substantial improve the runtime. This is not required for credit, but if you have compelted the project and are interested in optimizing this method to go beyond what is required, see the expandable section below.
+A simple implementation of the `nearestPoint` method should have $`O(N)`$ runtime complexity where $`N`$ is the number of vertices in the graph. Your implementation should be at least this efficient. It is possible to use more advanced data structures to substantial improve the runtime. This is not required for credit, but if you have completed the project and are interested in optimizing this method to go beyond what is required, see the expandable section below.
 
 <details><summary>OPTIONAL: Going beyond O(N) efficiency nearestPoint</summary>
+
 This is a famous algorithmic problem known as [nearest neighbor search](https://en.wikipedia.org/wiki/Nearest_neighbor_search), relevant in many geometric, mapping, and machine learning applications. Many algorithms and data structures have been studied for improving the linear runtime complexity of the simple solution. Some rely on approximation, meaning they no longer guarantee to find the closest point, just something approximately closest. 
 
 The exact methods for finding the nearest neighbor largely rely on data structures for partitioning the search space in a hierarchical fashion. At a high level, the idea is to preprocess the points into small regions and then only search among the points in the particular small region near the query point. There are many ways one could put that intuition into practice, but all of them require reasoning carefully about when one can be sure that the nearest point could or could not be in a particular region. Examples of such data structures include [Quad Trees](#https://en.wikipedia.org/wiki/Quadtree) and [k-d trees](#https://en.wikipedia.org/wiki/K-d_tree), as well as things as simple as a grid over the search space.
@@ -167,7 +168,28 @@ The exact methods for finding the nearest neighbor largely rely on data structur
 
 ### Implement `routeDistance`
 
+This method takes a `List<Point> route` representing a path in the graph as input and should calculate the total distance along that path, starting at the first point and adding the distances from the first to the second point, the second to the third point, and so on. Use the `distance` method of [the `Point` class](#the-point-class).
+
+The runtime complexity of the method should be linear in `route.size()`, that is, the number of points on the path. 
+
 ### Implement `connected`
+
+This method takes two points `p1` and `p2` and should return `true` if the points are connected, meaning there exists a path in the graph (a sequence of edges) from `p1` to `p2`. Otherwise, the method should return `false`, including if `p1` or `p2` are not themselves points in the graph.
+
+This method will require you to search in the graph itself, using, for example, a depth-first search (DFS) or similar approach. The runtime complexity of your implementation should be at most $`O(N+M)`$ where $`N`$ is the number of vertices in the graph and $`M`$ is the number of edges in the graph. In other words, the runtime complexity should be at most linear in the size of the graph. 
+
+It is possible make the runtime of `connected` much faster than linear by pre-processing the graph during `initialize` to store information about the connected components. This is not required for credit, but if you have completed the project and are interested in optimizing this method to go beyond what is required, see the expandable section below.
+
+<details><summary>OPTIONAL: Going beyond O(N+M) efficiency connected</summary>
+
+Pre-processing is the idea of doing some extra work *once* in order to save information that allows several subsequent operations to be completed more efficiently. In this case, it is possible to run a single $`O(N+M)`$ algorithm during `initialize` that stores information about the *connected components* of the graph, so that subsequent repeated calls to `connected` are much more efficient. A *connected component* is a subset of vertices that are all connected, meaning reachable from one another by paths. For undirected graphs, the question of whether two vertices are connected is equivalent to asking whether they are in the same connected component.
+
+Two ideas for how to compute the connected components include:
+
+1. One can use a graph search algorithm like depth-first search to explore the entire graph, one component at a time, and store a component label for each vertex that can be quickly looked up when later running `connected`.
+2. One can use a Union-Find data structure for disjoint sets, initially with vertices all in their own set, and unioning sets together when there is at least one edge connecting them. Then `connected` just needs to perform two `find` operations to check if two vertices are in the same set.
+
+</details>
 
 ### Implement `route`
 
