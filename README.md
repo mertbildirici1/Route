@@ -44,7 +44,7 @@ Additional resources: if you have any concerns about using Git with a partner, p
     - [The `Point` Class](#the-point-class)
     - [The `Visualize` Class](#the-visualize-class)
     - [Graph Data](#graph-data)
-- [Part 1: Impelementing `GraphProcessor`](#part-1-implementing-graphprocessor)
+- [Part 1: Implementing `GraphProcessor`](#part-1-implementing-graphprocessor)
 - [Part 2: Creating `GraphDemo`](#part-2-creating-graphdemo)
 - [Submitting, Reflect, Grading](#submitting-reflect-grading)
 
@@ -97,7 +97,7 @@ The `public` methods of `Visualize` are:
 
 ### Graph Data
 
-A graph consists of a number of vertices/nodes and the connections between them (known as edges). Our data represents highway networks, where vertices/nodes are points (see the [`Point` class](#the-point-class)) on the Earth's surface (think of them as intersections of highways) and the edges represent road segments. Our graph is **undirected**, meaning we assume every edge can be traversed in either direction.
+A graph consists of a number of vertices/nodes and the connections between them (known as edges). Our data represents highway networks, where vertices/nodes are points (see the [`Point` class](#the-point-class)) on the Earth's surface (think of them as intersections of highways) and the edges represent road segments. Our graph is **undirected**, meaning we assume every edge can be traversed in either direction. Our graph is also **weighted**, meaning the edges are not all of the same length. **The weight of an edge is the straight-line distance between its endpoints**, see [the `Point` class](#the-point-class) for the `distance` method.
 
 The data we work with was original pulled from the [METAL project by Dr. James D. Teresco](https://courses.teresco.org/metal/graph-formats.shtml). This data is intended for educational use only and not for any commercial purposes. It has been slightly modified and stored as `.graph` files inside of the `data` folder. Three `.graph` files are supplied, the first two are small and intended for development, testing, and debugging, and the third is much larger and intended for use in the final demo. All three have corresponding `.vis` and `.png` files for use with `Visualize`.
 
@@ -134,14 +134,42 @@ In other words:
 
 </details>
 
-## Part 1: Impelementing `GraphProcessor`
+## Part 1: Implementing `GraphProcessor`
 
-The starter code for `GraphProcessor.java` includes five public methods you must implement:
-1. `initialize`
-2. `nearestPoint`
-3. `routeDistance`
-4. `connected`
-5. `route`
+In this part you will implement `GraphProcessor`, which stores a graph representation and provides public methods to answer connectivity, distance, and pathfinding queries. This part of the project will be autograded.
+
+The starter code for `GraphProcessor.java` includes five public methods you must implement. Each is described below and also in javadocs inside of the starter code. While these are the only methods you must implement, you are very much *encouraged to create additional helper methods* where convenient for keeping your code organized and to avoid repetitive code. As a rough rule of thumb, if you find yourself writing a method that is longer than fits on your text editor at once (maybe 20-30 lines), or if you find yourself copy/pasting many lines of code, you might consider abstracting some of that away into a helper method. You could even create additional classes to help you implement these methods if you so choose.
+
+### Instance variables
+
+You will need to add instance variables to your `GraphProcessor` to represent a graph, but exactly how to do this is left up to you. Remember that vertices/nodes in the graph should be `Point` objects, see [the `Point` class](#the-point-class). As a hint, your graph representation should allow you to efficiently do things like:
+- Check if two vertices are adjacent (meaning there is an edge between them), or
+- For a given vertex, lookup/loop over all of its adjacent vertices.  
+
+### Implement `initialize`
+
+This method takes as input a `String fileName`. The file should be in the [`.graph` format](#graph-data). The method should read the data from the file and create a representation of the graph, **stored in the instance variables** so that the graph representation is avaialble to subsequent method calls. If the file cannot be opened or does not have the correct format, the method throws an `Exception`.
+
+`initialize` should always be called first before any of the subsequent methods.
+
+### Implement `nearestPoint`
+
+In general you may be interested in routing between points that are not themselves vertices of the graph, in which case you need to be able to find the closest points on the graph. This method takes a `Point p` as input and returns the vertex in the graph that is closest to `p`, in terms of the straight-line distance calculated by the `distance` method of [the Point class](#the-point-class), NOT shortest path distance. Note that the input `p` may not be in the graph. If there are ties, you can break them arbitrarily.
+
+A simple implementation of the `nearestPoint` method should have $`O(N)`$ runtime complexity where $`N`$ is the number of vertices in the graph. Your implementation should be at least this efficient. It is possible to use more advanced data structures to substantial improve the runtime. This is not required for credit, but if you have compelted the project and are interested in optimizing this method to go beyond what is required, see the expandable section below.
+
+<details><summary>OPTIONAL: Going beyond O(N) efficiency nearestPoint</summary>
+This is a famous algorithmic problem known as [nearest neighbor search](https://en.wikipedia.org/wiki/Nearest_neighbor_search), relevant in many geometric, mapping, and machine learning applications. Many algorithms and data structures have been studied for improving the linear runtime complexity of the simple solution. Some rely on approximation, meaning they no longer guarantee to find the closest point, just something approximately closest. 
+
+The exact methods for finding the nearest neighbor largely rely on data structures for partitioning the search space in a hierarchical fashion. At a high level, the idea is to preprocess the points into small regions and then only search among the points in the particular small region near the query point. There are many ways one could put that intuition into practice, but all of them require reasoning carefully about when one can be sure that the nearest point could or could not be in a particular region. Examples of such data structures include [Quad Trees](#https://en.wikipedia.org/wiki/Quadtree) and [k-d trees](#https://en.wikipedia.org/wiki/K-d_tree), as well as things as simple as a grid over the search space.
+
+</details>
+
+### Implement `routeDistance`
+
+### Implement `connected`
+
+### Implement `route`
 
 ## Part 2: Creating `GraphDemo`
 
