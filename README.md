@@ -2,6 +2,35 @@
 
 This is the directions document for Project 6 Route in CompSci 201 at Duke University, Fall 2022. [This document details the workflow](hhttps://coursework.cs.duke.edu/cs-201-fall-22/resources-201/-/blob/main/projectWorkflow.md) for downloading the starter code for the project, updating your code on coursework using Git, and ultimately submitting to Gradescope for autograding.
 
+For this project, **you are allowed to work with a partner** (that is, in a group of two). If you are working with a partner, read the details in the expandable section below on how to collaborate effectively using Git. 
+
+<details>
+<summary>Details on Git with a Partner for P4</summary>
+
+You may find it helpful to begin by reading the Working Together section of the [Git tutorial](https://gitlab.oit.duke.edu/academic-technology/cct/-/tree/master/git) from the Duke Colab.
+
+One person should fork the starter code and then add their partner as a collaborator on the project. Choose Settings>Members>Invite Members. Then use the autocomplete feature to invite your partner to the project as a *maintainer*. Both of you can now clone and push to this project. See the [gitlab documentation here](https://docs.gitlab.com/ee/user/project/members/).
+
+Now you should be ready to clone the code to your local machines.
+
+1. Both students should clone the same repository and import it into VS Code just like previous projects.  
+2. After both students have cloned and imported, one person should make a change (you could just write a comment in the code, for example). Commit and push this change. 
+3. The other partner will then issue a git pull request. Simply use the command-line (in the same project directory where you cloned the starter code for the project) and type:
+```bash
+git pull
+```
+4. If the other partner now opens the project in VS Code again, they should see the modified code with the edit created by the first partner. 
+5. You can continue this workflow: Whenever one person finishes work on the project, they commit and push. Whenever anyone starts work on the project, they begin by downloading the current version from the shared online repository using a git pull command.
+
+This process works as long as only one person is editing at a time, and **you always pull before editing** and remember to **commit/push when finished**. If you forget to pull before editing your local code, you might end up working from an old version of the code different than what is in the shared online gitlab repository. If that happens, you may experience an error when you attempt to push your code back to the shared online repository. 
+
+There are many ways to resolve these conflicts. See the [working together Git tutorial](https://gitlab.oit.duke.edu/academic-technology/cct/-/blob/master/git/working_together.md) [branching and merging Git tutorial](https://gitlab.oit.duke.edu/academic-technology/cct/-/blob/master/git/branching_merging.md) from the Duke Colab for more information. You can also refer to our [Git troubleshooting document](https://coursework.cs.duke.edu/201-public-documentation/resources-201/-/blob/main/troubleshooting.md#git-faq). 
+
+Additional resources: if you have any concerns about using Git with a partner, please consult the [Git troubleshooting guide](https://coursework.cs.duke.edu/cs201projects/resources-201/-/blob/main/gitTroubleshooting.md).
+
+</details>
+
+
 ## Outline 
 
 - [Project Introduction](#project-introduction)
@@ -12,6 +41,9 @@ This is the directions document for Project 6 Route in CompSci 201 at Duke Unive
 ## Project Introduction
 
 In this project you are asked to implement a routing service that represents the United States highway network as a graph and calculates routes and distances on this network. At a high level, in part 1 you will implement `GraphProcessor` which stores a graph representation and provides public methods to answer connectivity, distance, and pathfinding queries. This part of the project will be autograded as per usual. In part 2 you will implement a `main` method in `GraphProcessor` that produces a minimal viable product (also known as MVP) demonstrating the functionality of `GraphProcessor` and visualizing the results. For this part, you will record a brief demo of you or someone else *using* your program to find and visualize a route.
+
+### 
+
 
 ## Part 1: Impelementing `GraphProcessor`
 
@@ -32,8 +64,8 @@ See this video (TODO) for an example of a `GraphDemo` at work.
 
 Push your code to Git. Do this often. To submit:
 
-1. Submit your code on gradescope to the autograder.
-2. Submit a link to your demo in the separate Demo assignment. Be sure that your link is embedded/clickable.
+1. Submit your code on gradescope to the autograder. If you worked with a partner, you and your partner will make a **single submission together on gradescope**. Refer to [this document](https://docs.google.com/document/d/e/2PACX-1vREK5ajnfEAk3FKjkoKR1wFtVAAEN3hGYwNipZbcbBCnWodkY2UI1lp856fz0ZFbxQ3yLPkotZ0U1U1/pub) for submitting to Gradescope with a partner. 
+2. Submit a link to your demo in the separate Demo assignment. Be sure that your link is embedded/clickable. Again, if you worked with a partner, you and your partner will make a single combined submission.
 3. Complete the brief [reflect form]() TODO.
 
 
