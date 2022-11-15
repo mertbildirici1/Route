@@ -153,6 +153,8 @@ This method takes as input a `String fileName`. The file should be in the [`.gra
 throw new Exception("Could not read .graph file");
 ```
 
+You can see previous projects for examples of reading data from files, including a simple approach using `File` and `Scanner`. See the documentation for the java [`File` class here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html) and for the [`Scanner` class here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html). Chapter 4 of the course Zybook also includes a section on file input.
+
 `initialize` should always be called first before any of the subsequent methods. Make sure to verify that your `initialize` method is working as you expect before proceeding, as an incorrect `initialize` method will also cause problems with later methods. You might consider, for example, implementing a `main` method purely for verification purposes, and printing or using the debugger to view your graph representation of `simple.graph`, comparing to what is visualized in `simpleGraph.png`; see [Graph Data](#graph-data) above.
 
 ### Implement `nearestPoint`
@@ -221,7 +223,23 @@ Using this straight-line heuristic, rather than just exploring the closest unexp
 
 ## Part 2: Creating `GraphDemo`
 
-The starter code for `GraphDemo.java` only includes an empty `main` method. Feel free to modify `GraphDemo` however you see fit - it will not be autograded. In the end, running your `GraphDemo` `main` method should produce a demonstration of the functionality of your project, including (at a minimum) the calculation of a shortest path between at least two cities in the United States, and the visualization of that route. You will produce a recording demonstrating your use of `GraphDemo` in at most 5 minutes. In your recording, you should explain how `GraphDemo` works.
+The starter code for `GraphDemo.java` only includes an empty `main` method. Feel free to organize `GraphDemo` however you see fit - it will not be autograded. **Running your `GraphDemo` `main` method should produce a demonstration of the functionality of your project on the USA highway network, including (at a minimum) the following:** 
+
+1. A user should be able to indicate two cities in the United States. An extensive list of latitude-longitude coordinates for US Cities has been included in `data/uscities.csv`. This data was obtained from [simplemaps.com](https://simplemaps.com/data/us-cities) for educational use only.
+
+2. For each of the user indicated points, the demo should locate the closest vertex of the road network from `usa.graph`, the large data file containing the highway network of the USA.
+
+3. The demo should calculate a route (shortest path) between the two nearest vertices to the cities indicated by the user.
+
+4. The demo should indicate the total distance (in miles) of the route calculated.
+
+5. The demo should measure and report how long it took (include units) to calculate the closest points, shortest path, and distance along the path (steps 2-4). Do not include the time to read data from `usa.graph` and initialize the graph, nor time waiting on the user to input cities. You can use whatever approach you like for timing, one popular example is [Java's `System.nanoTime()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#nanoTime(), and you can see previous projects for examples measuring elapsed time.
+
+6. The demo should generate a visualization of the route calculated projected onto the map of the USA (see `images/usa.png` and `data/usa.vis`). You can do this using the [`Visualize` class](#the-visualize-class).
+
+You should **produce a recording demonstrating your use of `GraphDemo` in at most 5 minutes.** You can use whatever recording software you like. One free option is to simply start a zoom meeting with your free [Duke zoom account](https://oit.duke.edu/what-we-do/applications/zoom-meetings), share your screen, and record (see the [zoom recording documentation](https://support.zoom.us/hc/en-us/sections/200208179-Recording)). You can record locally and then upload somewhere, or you can record directly to the cloud and share a link to that later. 
+
+In your recording, explain what you are doing and what the code is doing while running. You don't need to explain or look at the details of the implementation, but you do need to describe the functionality, similar to what is written above. Imagine that you are speaking to a user (maybe a friend or family member) who is **not** part of Compsci 201 but is interested in what your software does. If you have a partner, both partners should participate in the demo.
 
 See this video (TODO) for an example of a `GraphDemo` at work.
 
@@ -230,7 +248,7 @@ See this video (TODO) for an example of a `GraphDemo` at work.
 Push your code to Git. Do this often. To submit:
 
 1. Submit your code on gradescope to the autograder. If you worked with a partner, you and your partner will make a **single submission together on gradescope**. Refer to [this document](https://docs.google.com/document/d/e/2PACX-1vREK5ajnfEAk3FKjkoKR1wFtVAAEN3hGYwNipZbcbBCnWodkY2UI1lp856fz0ZFbxQ3yLPkotZ0U1U1/pub) for submitting to Gradescope with a partner. 
-2. Submit a link to your demo in the separate Demo assignment. Be sure that your link is embedded/clickable. Again, if you worked with a partner, you and your partner will make a single combined submission.
+2. Submit a link to your demo in the separate Demo assignment. **Be sure that your link is embedded/clickable and viewable without sign-in.** You can host your demo anywhere you like (unlisted youtube, zoom cloud, google drive, Duke box, ...) as long as we can access it from a link and view it. Again, if you worked with a partner, you and your partner will make a single combined submission.
 3. Complete the brief [reflect form]() TODO.
 
 
