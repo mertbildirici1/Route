@@ -233,7 +233,7 @@ The starter code for `GraphDemo.java` only includes an empty `main` method. Feel
 
 4. The demo should indicate the total distance (in miles) of the route calculated.
 
-5. The demo should measure and report how long it took (include units) to calculate the closest points, shortest path, and distance along the path (steps 2-4). Do not include the time to read data from `usa.graph` and initialize the graph, nor time waiting on the user to input cities. You can use whatever approach you like for timing, one popular example is [Java's `System.nanoTime()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#nanoTime(), and you can see previous projects for examples measuring elapsed time.
+5. The demo should measure and report how long it took (include units) to calculate the closest points, shortest path, and distance along the path (steps 2-4). Do not include the time to read data from `usa.graph` and initialize the graph, nor time waiting on the user to input cities. You can use whatever approach you like for timing, one popular example is [Java's `System.nanoTime()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#nanoTime(), and you can see previous projects for examples measuring elapsed time. An efficient implementation, meeting the minimum specifications in `GraphProcessor`, should take less than 1 second for these steps.
 
 6. The demo should generate a visualization of the route calculated projected onto the map of the USA (see `images/usa.png` and `data/usa.vis`). You can do this using the [`Visualize` class](#the-visualize-class).
 
@@ -241,7 +241,7 @@ You should **produce a recording demonstrating your use of `GraphDemo` in at mos
 
 In your recording, explain what you are doing and what the code is doing while running. You don't need to explain or look at the details of the implementation, but you do need to describe the functionality, similar to what is written above. Imagine that you are speaking to a user (maybe a friend or family member) who is **not** part of Compsci 201 but is interested in what your software does. If you have a partner, both partners should participate in the demo.
 
-See this video (TODO) for an example of a `GraphDemo` at work.
+**[See this video](https://duke.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d3f2cc7a-902a-499f-850b-af4e014f8a07) with an example of a completed `GraphDemo` at work.**
 
 ## Submitting, Reflect, Grading
 
