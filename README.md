@@ -50,7 +50,9 @@ Additional resources: if you have any concerns about using Git with a partner, p
 
 ## Project Introduction
 
-In this project you are asked to implement a routing service that represents the United States highway network as a graph and calculates routes and distances on this network. At a high level, in part 1 you will implement `GraphProcessor` which stores a graph representation and provides public methods to answer connectivity, distance, and pathfinding queries. This part of the project will be autograded as per usual. In part 2 you will implement a `main` method in `GraphProcessor` that produces a minimal viable product (also known as MVP) demonstrating the functionality of `GraphProcessor` and visualizing the results. For this part, you will record a brief demo of you or someone else *using* your program to find and visualize a route.
+In this project you are asked to implement a routing service that represents the United States highway network as a graph and calculates routes and distances on this network. At a high level, in part 1 you will implement `GraphProcessor` which stores a graph representation and provides public methods to answer connectivity, distance, and pathfinding queries. This part of the project will be autograded as per usual. 
+
+In part 2 you will implement a `main` method in `GraphProcessor` that produces a minimal viable product (also known as MVP) demonstrating the functionality of `GraphProcessor` and visualizing the results. For this part, you will record a brief demo of you or someone else *using* your program to find and visualize a route. [See this video](https://duke.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d3f2cc7a-902a-499f-850b-af4e014f8a07) for an example of a completed `GraphDemo` at work.
 
 The rest of this section introduces you to the starter code, especially the `Point` and `Visualize` classes, as well as the graph data we will be using.
 
@@ -207,7 +209,7 @@ throw new InvalidAlgorithmParameterException("No path between start and end");
 
 This method will require you to search in the graph itself, and must also take into account the fact that the graph is weighted while searching for shortest paths. You will need to adapt Dijkstra's algorithm to accomplish this: a breadth-first search (BFS) that uses a binary heap instead of a queue to keep track of which vertex to explore next. You can use the `java.util` data structure `PriorityQueue` that implements a binary heap. Note that this data structure does not support operations to change the priority of an element, so instead your implementation should simply `add` an element again any time a new shorter path is discovered, with the corresponding smaller distance.
 
-The runtime complexity of your implementation should be at most $`O(N+M) \log(N)`$ where $`N`$ is the number of vertices in the graph, $`M`$ is the number of edges in the graph, and we are assuming that each vertex is connected to at most a constant number of other vertices due to the way we use the `PriorityQueue`.
+The runtime complexity of your implementation should be at most $`O(N+M) \log(N))`$ where $`N`$ is the number of vertices in the graph, $`M`$ is the number of edges in the graph, and we are assuming that each vertex is connected to at most a constant number of other vertices due to the way we use the `PriorityQueue`.
 
 It is possible make the runtime of `route` much faster empirically in the average case (though not asymptotically in the worst case). This is not required for credit, but if you have completed the project and are interested in optimizing this method to go beyond what is required, see the expandable section below.
 
@@ -233,7 +235,7 @@ The starter code for `GraphDemo.java` only includes an empty `main` method. Feel
 
 4. The demo should indicate the total distance (in miles) of the route calculated.
 
-5. The demo should measure and report how long it took (include units) to calculate the closest points, shortest path, and distance along the path (steps 2-4). Do not include the time to read data from `usa.graph` and initialize the graph, nor time waiting on the user to input cities. You can use whatever approach you like for timing, one popular example is [Java's `System.nanoTime()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#nanoTime(), and you can see previous projects for examples measuring elapsed time. An efficient implementation, meeting the minimum specifications in `GraphProcessor`, should take less than 1 second for these steps.
+5. The demo should measure and report how long it took (include units) to calculate the closest points, shortest path, and distance along the path (steps 2-4). Do not include the time to read data from `usa.graph` and initialize the graph, nor time waiting on the user to input cities. You can use whatever approach you like for timing, one popular example is [Java's `System.nanoTime()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#nanoTime()), and you can see previous projects for examples measuring elapsed time. An efficient implementation, meeting the minimum specifications in `GraphProcessor`, should take less than 1 second for these steps.
 
 6. The demo should generate a visualization of the route calculated projected onto the map of the USA (see `images/usa.png` and `data/usa.vis`). You can do this using the [`Visualize` class](#the-visualize-class).
 
@@ -249,6 +251,24 @@ Push your code to Git. Do this often. To submit:
 
 1. Submit your code on gradescope to the autograder. If you worked with a partner, you and your partner will make a **single submission together on gradescope**. Refer to [this document](https://docs.google.com/document/d/e/2PACX-1vREK5ajnfEAk3FKjkoKR1wFtVAAEN3hGYwNipZbcbBCnWodkY2UI1lp856fz0ZFbxQ3yLPkotZ0U1U1/pub) for submitting to Gradescope with a partner. 
 2. Submit a link to your demo in the separate Demo assignment. **Be sure that your link is embedded/clickable and viewable without sign-in.** You can host your demo anywhere you like (unlisted youtube, zoom cloud, google drive, Duke box, ...) as long as we can access it from a link and view it. Again, if you worked with a partner, you and your partner will make a single combined submission.
-3. Complete the brief [reflect form]() TODO.
+3. Complete the brief [reflect form](https://forms.office.com/Pages/ResponsePage.aspx?id=TsVyyzFKnk2xSh6jbfrJTErNjWEU70pGg_ytfEVEPi5UOVlEQUYwSE9aWFUzWUswSjA4UDRVUFY2Vy4u).
 
+This project will be graded as follows:
+
+| Points   | Grading Category |
+| ------   | ---------------- |
+| TBD      | GraphProcessor code (autograded)   |
+| 10      | GraphDemo recording (TA graded)    |
+
+The rubric for grading your GraphDemo recording is as follows:
+
+| Points | Requirement |
+| ------ | ----------- |
+| 1      | Shows a user indicating US cities |
+| 1      | Shows program calculating closest points to cities |
+| 1      | Calculates and reports distance of shortest route |
+| 1      | Shows time required for calculating closest points, route, and distance |
+| 2      | Efficient implementation - should take less than 1 second and should not be any noticeable delay when running program |
+| 2      | Shows visualization of the route calculated |
+| 2      | Includes audio explanation of the functionality |
 
