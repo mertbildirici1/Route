@@ -54,6 +54,8 @@ In this project you are asked to implement a routing service that represents the
 
 In part 2 you will implement a `main` method in `GraphProcessor` that produces a minimal viable product (also known as MVP) demonstrating the functionality of `GraphProcessor` and visualizing the results. For this part, you will record a brief demo of you or someone else *using* your program to find and visualize a route. [See this video](https://duke.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=d3f2cc7a-902a-499f-850b-af4e014f8a07) for an example of a completed `GraphDemo` at work.
 
+There is no analysis for this project.
+
 The rest of this section introduces you to the starter code, especially the `Point` and `Visualize` classes, as well as the graph data we will be using.
 
 ### The `Point` Class
@@ -272,6 +274,8 @@ Push your code to Git. Do this often. To submit:
 1. Submit your code on gradescope to the autograder. If you worked with a partner, you and your partner will make a **single submission together on gradescope**. Refer to [this document](https://docs.google.com/document/d/e/2PACX-1vREK5ajnfEAk3FKjkoKR1wFtVAAEN3hGYwNipZbcbBCnWodkY2UI1lp856fz0ZFbxQ3yLPkotZ0U1U1/pub) for submitting to Gradescope with a partner. 
 2. Submit a link to your demo in the separate Demo assignment. **Be sure that your link is embedded/clickable and viewable without sign-in.** You can host your demo anywhere you like (unlisted youtube, zoom cloud, google drive, Duke box, ...) as long as we can access it from a link and view it. Again, if you worked with a partner, you and your partner will make a single combined submission.
 3. Complete the brief [reflect form](https://forms.office.com/Pages/ResponsePage.aspx?id=TsVyyzFKnk2xSh6jbfrJTErNjWEU70pGg_ytfEVEPi5UOVlEQUYwSE9aWFUzWUswSjA4UDRVUFY2Vy4u).
+
+There is no analysis for this project.
 
 This project will be graded as follows:
 
