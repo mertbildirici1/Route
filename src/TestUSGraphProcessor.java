@@ -22,16 +22,22 @@ import java.util.*;
 public class TestUSGraphProcessor {
 	GraphProcessor usDriver = new GraphProcessor();
 	Map<String, Point> usCityLookup;
-	String usGraphFile = "/Users/emilydu/Documents/201 Fall 22/p6-routing/data/usa.graph";
-	String usCities = "/Users/emilydu/Documents/201 Fall 22/p6-routing/data/uscities.csv";
+	String usGraphFile = "data/usa.graph";
+	String usCities = "data/uscities.csv";
 
 	/**
      * Tests that driver returns closest point in graph to a given query point
      */
 	@BeforeEach
     public void setup() throws Exception {
-		usDriver.initialize(usGraphFile);
-		usCityLookup = readCities(usCities);
+		try {
+			usDriver.initialize(usGraphFile);
+			usCityLookup = readCities(usCities);
+		} catch(FileNotFoundException filenotFound) {
+			assertTrue(false, "File not found; please follow the project description for instructions on either" +
+						"a) changing your settings.json or b) replacing usGraphFile and usCities with their absolute paths!");
+		}
+		
     }
 
 	/**
@@ -82,10 +88,8 @@ public class TestUSGraphProcessor {
 		assertThrows(InvalidAlgorithmParameterException.class, ()->usDriver.route(new Point(18.399426, -66.071025), new Point(47.625719, -122.328043)));
 	}
 
-	/**
-     * Tests that driver returns the distance along a given route represented as a List<Point> input
-     * Tests only if .routeDistsance() is correct (i.e. can pass even if .route() is incorect)
-     */
+	// routeDistance - return the distance along a given route represented as a List<Point>  input
+	// this can be unit tested even without calling initialize, it just takes an arbitrary List<Point>.
 	@Test 
 	public void testRouteDistance() {
 		List<Point> route1 = Arrays.asList(new Point(35.9792, -78.9022),  new Point(35.890653, -78.750076), new Point(35.835315, -78.669448), new Point(35.834585, -78.638592), new Point(35.8324, -78.6429));
@@ -118,7 +122,8 @@ public class TestUSGraphProcessor {
 		return (res > target - 0.05 && res < target + 0.05);
 	}
 
-	// helper method to check if a route is the true shortest path, or within 5% of the overall distance of the true shortest path
+	// helper method to check if a route is the true shortest path
+    // or if it is within 5% of the overall distance of the true shortest path
 	private static boolean pointInRange(Point result, Point[] ranged) {
 		for (Point p : ranged) {
 			if (p.equals(result)) return true;

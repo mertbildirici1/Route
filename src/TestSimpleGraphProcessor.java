@@ -22,14 +22,19 @@ import java.util.*;
 public class TestSimpleGraphProcessor {
 	GraphProcessor simpleDriver = new GraphProcessor();
 	Map<String, Point> simpleCityLookup;
-	String simpleGraphFile = "/Users/emilydu/Documents/201 Fall 22/p6-route/data/simple.graph";
-	String simpleCities = "/Users/emilydu/Documents/201 Fall 22/p6-route/data/simplecities.csv";
+	String simpleGraphFile = "data/simple.graph";
+	String simpleCities = "data/simplecities.csv";
 
     // Setup to initialize driver before tests
 	@BeforeEach
     public void setup() throws Exception {
-		simpleDriver.initialize(simpleGraphFile);
-		simpleCityLookup = readCities(simpleCities);
+		try {
+			simpleDriver.initialize(simpleGraphFile);
+			simpleCityLookup = readCities(simpleCities);
+		} catch(FileNotFoundException filenotFound) {
+			assertTrue(false, "File not found; please follow the project description for instructions on either" +
+						"a) changing your settings.json or b) replacing simpleGraphFile and simpleCities with their absolute paths!");
+		}
     }
 
     /**
