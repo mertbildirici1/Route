@@ -138,7 +138,27 @@ In other words:
 
 ## Part 1: Implementing `GraphProcessor`
 
-In this part you will implement `GraphProcessor`, which stores a graph representation and provides public methods to answer connectivity, distance, and pathfinding queries. This part of the project will be autograded.
+In this part you will implement `GraphProcessor`, which stores a graph representation and provides public methods to answer connectivity, distance, and pathfinding queries. This part of the project will be autograded. JUnit tests are also supplied to test your code locally, and we suggest starting by testing with `TestSimpleGraphProcessor`. However, **you will need to do the following before you can run JUnit tests** locally for this project (expand details below).
+
+<details><summary>Expand for details on configuring VS Code for JUnit</summary>
+
+VS Code, by default, runs JUnit tests in a *different* working directory than your project directory. This causes a problem for JUnit tests on this particular project because the JUnit tests need to call your `initialize` method which opens files using a relative path from the project directory (for example, `data/simple.graph`). The simplest way to fix this is to change the working directory for JUnit with VS Code, which you can do in the following steps.
+
+1. Open your `settings.json` file in VS Code. To do this, open the command palette (`shift` + `command` + `p` on a Mac, or `shift` + `ctrl` + `p` on Windows) and type "settings.json". Select "Preferences: Open Workspace Settings (JSON)."
+Edit your `java.test.config` in VS Code, or
+2. Edit your `settings.json` to look like the following and then save:
+
+```
+{
+    "java.test.config": {
+        "workingDirectory": "${workspaceFolder}"
+        }
+}
+```
+
+That should be it!
+
+</details>
 
 The starter code for `GraphProcessor.java` includes five public methods you must implement. Each is described below and also in javadocs inside of the starter code. While these are the only methods you must implement, you are very much *encouraged to create additional helper methods* where convenient for keeping your code organized and to avoid repetitive code. As a rough rule of thumb, if you find yourself writing a method that is longer than fits on your text editor at once (maybe 20-30 lines), or if you find yourself copy/pasting many lines of code, you might consider abstracting some of that away into a helper method. You could even create additional classes to help you implement these methods if you so choose.
 
