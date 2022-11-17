@@ -1,8 +1,11 @@
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.Assert;
 import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.security.InvalidAlgorithmParameterException;
@@ -10,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.*;
+
 
 /**
  * Testing GraphProcessor on the family of simple data
@@ -29,13 +33,16 @@ public class TestSimpleGraphProcessor {
 	@BeforeEach
     public void setup() throws Exception {
 		try {
-			simpleDriver.initialize(simpleGraphFile);
+			simpleDriver.initialize(new FileInputStream(simpleGraphFile));
 			simpleCityLookup = readCities(simpleCities);
 		} catch(FileNotFoundException filenotFound) {
 			assertTrue(false, "File not found; please follow the project description for instructions on either" +
-						"a) changing your settings.json or b) replacing simpleGraphFile and simpleCities with their absolute paths!");
+						"a) changing your settings.json or b) replacing usGraphFile and usCities with their absolute paths!");
 		}
+
     }
+
+
 
     /**
      * Tests that driver returns closest point in graph to a given query point
@@ -44,7 +51,7 @@ public class TestSimpleGraphProcessor {
 	public void testNearestPoint() {
 		String[] froms = new String[]{"A A", "B B", "H H", "K K", "L L"};
 
-		// includes all possible nearest points within 5% of the closest distance
+		// includes all possible nearest points within 3% of the closest distance
         List<Point[]> pLookedUpRanges = new ArrayList();
 		pLookedUpRanges.add(new Point[] {new Point(2, -1)});
         pLookedUpRanges.add(new Point[] {new Point(2, 0)});
@@ -57,22 +64,29 @@ public class TestSimpleGraphProcessor {
 			Point p = simpleCityLookup.get(froms[i]);
 			Point nearP = simpleDriver.nearestPoint(p);
             
-			assertTrue(pointInRange(nearP, pLookedUpRanges.get(i)), "Your nearest point isn't a valid point whose (distance from the input) is within 5% of the (distance from the input and the true nearest point)!");
+			assertTrue(pointInRange(nearP, pLookedUpRanges.get(i)), "Your nearest point isn't a valid point whose (distance from the input) is within 3% of the (distance from the input and the true nearest point)!");
 		}
 	}
 
     /**
      * Tests that driver returns a List<Point> corresponding to the shortest path from start to end
-     * Accepts alternate paths that are ultimately within 5% of the distance of the true shortest path
+     * Accepts alternate paths that are ultimately within 3% of the distance of the true shortest path
      * @throws InvalidAlgorithmParameterException
      */
 	@Test public void testRoute() throws InvalidAlgorithmParameterException {
 		// A to F
-		List<Point> route = simpleDriver.route(new Point(2, -1), new Point(1, 1));
+		List<Point> resRoute1 = simpleDriver.route(new Point(2, -1), new Point(1, 1));
 		List<Point> trueRoute1 = Arrays.asList(new Point(2, -1), new Point(2, 0), new Point(1, 1));
-        assertFalse(route == null, "Your route is null!");
-        double trueRouteDist = 166.93;
-		assertTrue(checkPaths(route, trueRoute1, simpleDriver.routeDistance(route), trueRouteDist), "Your route was not close to the true shortest path between the start and ending points!");
+		double trueRouteDist1 = 166.93;
+        assertFalse(resRoute1 == null, "Your route is null!");
+		assertTrue(checkPaths(resRoute1, trueRoute1, simpleDriver.routeDistance(resRoute1), trueRouteDist1), "Your route was not close to the true shortest path between the start and ending points!");
+
+		// A to B
+		List<Point>resRoute2 = simpleDriver.route(new Point(2, -1), new Point(2, 0));
+		List<Point> trueRoute2 = Arrays.asList(new Point(2, -1), new Point(2, 0));
+		assertFalse(resRoute2 == null, "Your route is null!");
+		assertTrue(resRoute2.size() == trueRoute2.size() && 
+			resRoute2.get(0).equals(trueRoute2.get(0)) && resRoute2.get(1).equals(trueRoute2.get(1))); // no ambiguity
 
         // D to J (1, -1) to (-1, 1)
         assertThrows(InvalidAlgorithmParameterException.class, ()->simpleDriver.route(new Point(1, -1), new Point(-1, 1)));
@@ -94,7 +108,7 @@ public class TestSimpleGraphProcessor {
 		for (int i = 0; i < routes.size(); i++) {
 			double routeDist = simpleDriver.routeDistance(routes.get(i));
 			assertTrue(inRange(routeDist, targetDists[i]),
-				"Your route distance is not within rounding error (+/- 0.05) of the actual route distance! This test is designed so that it passes if your .routeDistance() is correct, even if your .route() is incorrect");
+				"Your route distance is not within rounding error (+/- 0.03) of the actual route distance! This test is designed so that it passes if your .routeDistance() is correct, even if your .route() is incorrect");
 		}
 	}
 
@@ -111,12 +125,12 @@ public class TestSimpleGraphProcessor {
 		   "You mistakenly claim two points representing Durham NC and Raleigh NC's nearest points, respectively, are not connected. This test is designed if .connected() is correct, even if .nearestPoint() is faulty"); 
 	}
  
-    // helper method to check if a point's distance to input is within 5% of the true nearest point's distance to input
+    // helper method to check if a point's distance to input is within 3% of the true nearest point's distance to input
 	private static boolean inRange(double resPathDist, double truePathDist) {
-		return (resPathDist > 0.95 * truePathDist && resPathDist < 1.05 * truePathDist);
+		return (resPathDist > 0.97 * truePathDist && resPathDist < 1.03 * truePathDist);
 	}
 
-    // helper method to check if a route is the true shortest path, or within 5% of the overall distance of the true shortest path
+    // helper method to check if a route is the true shortest path, or within 3% of the overall distance of the true shortest path
     private static boolean checkPaths(List<Point> r1, List<Point> r2, double resPathDist, double truePathDist) {
         if (r1.size() == r2.size()) {
             for (int i = 0; i < r1.size(); i++) {
