@@ -140,7 +140,9 @@ In other words:
 
 ## Part 1: Implementing `GraphProcessor`
 
-In this part you will implement `GraphProcessor`, which stores a graph representation and provides public methods to answer connectivity, distance, and pathfinding queries. This part of the project will be autograded. JUnit tests are also supplied to test your code locally, and we suggest starting by testing with the straightforward `TestSimpleGraphProcessor` for ease of debugging. Once you pass `TestSimpleGraphProcessor`, you can also check compliance with `TestUSGraphProcessor`, which runs on the same data as the autograder. However, **you will need to do the following before you can run JUnit tests** locally for this project (expand details below).
+In this part you will implement `GraphProcessor`, which stores a graph representation and provides public methods to answer connectivity, distance, and pathfinding queries. This part of the project will be autograded. To pass autograder compilation, you must write your `GraphProcessor` implemention entirely within the provided `GraphProcessor.java` file. If you use helper classes, they should be included in the file as nested classes.
+
+JUnit tests are also supplied to test your code locally, and we suggest starting by testing with the straightforward `TestSimpleGraphProcessor` for ease of debugging. Once you pass `TestSimpleGraphProcessor`, you can also check compliance with `TestUSGraphProcessor`, which runs on the same data as the autograder. However, **you will need to do the following before you can run JUnit tests** locally for this project (expand details below).
 
 <details><summary>Expand for details on configuring VS Code for JUnit</summary>
 
