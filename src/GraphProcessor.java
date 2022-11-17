@@ -1,5 +1,6 @@
 import java.security.InvalidAlgorithmParameterException;
 import java.util.List;
+import java.io.FileInputStream;
 
 /**
  * Models a weighted graph of latitude-longitude points
@@ -13,10 +14,10 @@ public class GraphProcessor {
      * Creates and initializes a graph from a source data
      * file in the .graph format. Should be called
      * before any other methods work.
-     * @param fileName name of source .graph file
+     * @param file a FileInputStream of the .graph file
      * @throws Exception if file not found or error reading
      */
-    public void initialize(String fileName) throws Exception {
+    public void initialize(FileInputStream file) throws Exception {
         // TODO: Implement initialize
     }
 
