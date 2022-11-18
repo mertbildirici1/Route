@@ -29,7 +29,7 @@ public class GraphProcessor {
      * @return The closest point in the graph to p
      */
     public Point nearestPoint(Point p) {
-        // TODO: Implement initialize
+        // TODO: Implement nearestPoint
         return null;
     }
 
