@@ -259,7 +259,7 @@ The starter code for `GraphDemo.java` only includes an empty `main` method. Feel
 
 4. The demo should indicate the total distance (in miles) of the route calculated.
 
-5. The demo should measure and report how long it took (include units) to calculate the closest points, shortest path, and distance along the path (steps 2-4). Do not include the time to read data from `usa.graph` and initialize the graph, nor time waiting on the user to input cities. You can use whatever approach you like for timing, one popular example is [Java's `System.nanoTime()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#nanoTime()), and you can see previous projects for examples measuring elapsed time. An efficient implementation, meeting the minimum specifications in `GraphProcessor`, should take less than 1 second for these steps.
+5. The demo should measure and report how long it took (include units) to calculate the closest points, shortest path, and distance along the path (steps 2-4). Do not include the time to read data from `usa.graph` and initialize the graph, nor time waiting on the user to input cities. You can use whatever approach you like for timing, one popular example is [Java's `System.nanoTime()`](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/System.html#nanoTime()), and you can see previous projects for examples measuring elapsed time.
 
 6. The demo should generate a visualization of the route calculated projected onto the map of the USA (see `images/usa.png` and `data/usa.vis`). You can do this using the [`Visualize` class](#the-visualize-class).
 
@@ -271,7 +271,7 @@ In your recording, explain what you are doing and what the code is doing while r
 
 ## Submitting, Reflect, Grading
 
-Push your code to Git. Do this often. To submit:
+Commit and push your code often as you develop. To submit:
 
 1. Submit your code on gradescope to the autograder. If you worked with a partner, you and your partner will make a **single submission together on gradescope**. Refer to [this document](https://docs.google.com/document/d/e/2PACX-1vREK5ajnfEAk3FKjkoKR1wFtVAAEN3hGYwNipZbcbBCnWodkY2UI1lp856fz0ZFbxQ3yLPkotZ0U1U1/pub) for submitting to Gradescope with a partner. 
 2. Submit a link to your demo in the separate Demo assignment. **Be sure that your link is embedded/clickable and viewable without sign-in.** You can host your demo anywhere you like (unlisted youtube, zoom cloud, google drive, Duke box, ...) as long as we can access it from a link and view it. Again, if you worked with a partner, you and your partner will make a single combined submission.
@@ -283,8 +283,8 @@ This project will be graded as follows:
 
 | Points   | Grading Category |
 | ------   | ---------------- |
-| TBD      | GraphProcessor code (autograded)   |
-| 10      | GraphDemo recording (TA graded)    |
+| 35       | GraphProcessor code (autograded)   |
+| 8        | GraphDemo recording (TA graded)    |
 
 The rubric for grading your GraphDemo recording is as follows:
 
@@ -293,8 +293,7 @@ The rubric for grading your GraphDemo recording is as follows:
 | 1      | Shows a user indicating US cities |
 | 1      | Shows program calculating closest points to cities |
 | 1      | Calculates and reports distance of shortest route |
-| 1      | Shows time required for calculating closest points, route, and distance |
-| 2      | Efficient implementation - should take less than 1 second and should not be any noticeable delay when running program |
+| 1      | Shows time (including units) required for calculating closest points, route, and distance |
 | 2      | Shows visualization of the route calculated |
 | 2      | Includes audio explanation of the functionality |
 
