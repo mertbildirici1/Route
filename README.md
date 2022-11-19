@@ -174,12 +174,12 @@ You will need to add instance variables to your `GraphProcessor` to represent a 
 
 ### Implement `initialize`
 
-This method takes as input a `String fileName`. The file should be in the [`.graph` format](#graph-data). The method should read the data from the file and create a representation of the graph, **stored in the instance variables** so that the graph representation is avaialble to subsequent method calls. If the file cannot be opened or does not have the correct format, the method throws an `Exception`, for example:
+This method takes as input a `FileInputStream`. This input stream should be for a file in the [`.graph` format](#graph-data). The method should read the data from the file and create a representation of the graph, **stored in the instance variables** so that the graph representation is avaialble to subsequent method calls. If the file cannot be opened or does not have the correct format, the method throws an `Exception`, for example:
 ```java
 throw new Exception("Could not read .graph file");
 ```
 
-You can see previous projects for examples of reading data from files, including a simple approach using `File` and `Scanner`. See the documentation for the java [`File` class here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/File.html) and for the [`Scanner` class here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html). Chapter 4 of the course Zybook also includes a section on file input.
+You can see previous projects for examples of reading data from files. For example, you can create a `Scanner` to read from the input stream. See the documentation for the java [`Scanner` class here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html). Chapter 4 of the course Zybook also includes a section on file input.
 
 `initialize` should always be called first before any of the subsequent methods. Make sure to verify that your `initialize` method is working as you expect before proceeding, as an incorrect `initialize` method will also cause problems with later methods. You might consider, for example, implementing a `main` method purely for verification purposes, and printing or using the debugger to view your graph representation of `simple.graph`, comparing to what is visualized in `simpleGraph.png`; see [Graph Data](#graph-data) above.
 
