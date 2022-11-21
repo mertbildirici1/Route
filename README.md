@@ -127,14 +127,15 @@ num_vertices num_edges
 node0_name node0_latitude node0_longitude
 node1_name node1_latitude node1_longitude
 ...
-index_u_edge0 index_v_edge0
-index_v_edge1 index_v_edge1
+index_u_edge0 index_v_edge0 optional_edge0_name
+index_v_edge1 index_v_edge1 optional_edge1_name
 ...
 ```
 In other words:
 - The first consists of the number of vertices and edges respectively, space separated.
 - The next `num_vertices` lines describe one vertex/node per line, giving its name/label, then its latitude, then its longitude, all space separated.
-- The next $num_edges$ lines describe one edge per line, giving the index of its first endpoint and then the index of its second endpoint, space separated. These indices refer to the order in which the vertices/nodes appear in this file (0-indexed). For example, `0 1` would mean there is an edge between the first and second vertices listed above in the file.
+- The next `num_edges` lines describe one edge per line, giving the index of its first endpoint and then the index of its second endpoint, space separated. These indices refer to the order in which the vertices/nodes appear in this file (0-indexed). For example, `0 1` would mean there is an edge between the first and second vertices listed above in the file. 
+- There may or may not be an edge label/name after the indices for each edge; `simple.graph` and `durham.graph` do not include these labels, but `usa.graph` does, so you will need to be able to handle both cases.
 
 </details>
 
@@ -179,7 +180,7 @@ This method takes as input a `FileInputStream`. This input stream should be for 
 throw new Exception("Could not read .graph file");
 ```
 
-You can see previous projects for examples of reading data from files. For example, you can create a `Scanner` to read from the input stream. See the documentation for the java [`Scanner` class here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html). Chapter 4 of the course Zybook also includes a section on file input.
+You can see previous projects for examples of reading data from files. For example, you can create a `Scanner` to read from the input stream. See the documentation for the java [`Scanner` class here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html). Chapter 4 of the course Zybook also includes a section on file input. You might use the `hasNextDouble()`, `nextDouble()`, `hasNextInteger()`, and `nextInteger()`, etc. methods to read a value at a time, or you can just use [the `nextLine()` method](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Scanner.html#nextLine()) to read a line at a time and then `split` the resulting String. If you take the latter approach, you may find [the `Double.parseDouble()` method](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Double.html#parseDouble(java.lang.String)) and [the `Integer.parseInt()` method](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html#parseInt(java.lang.String)) helpful for converting a String of a number to the number itself.
 
 `initialize` should always be called first before any of the subsequent methods. Make sure to verify that your `initialize` method is working as you expect before proceeding, as an incorrect `initialize` method will also cause problems with later methods. You might consider, for example, implementing a `main` method purely for verification purposes, and printing or using the debugger to view your graph representation of `simple.graph`, comparing to what is visualized in `simpleGraph.png`; see [Graph Data](#graph-data) above.
 
